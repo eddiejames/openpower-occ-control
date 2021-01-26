@@ -7,6 +7,7 @@
 #include <libpldm/state_set.h>
 
 #include <phosphor-logging/log.hpp>
+#include <iostream>
 
 namespace pldm
 {
@@ -118,12 +119,14 @@ void Interface::sensorEvent(sdbusplus::message::message& msg)
     if (eventState == static_cast<EventState>(
                           PLDM_STATE_SET_OPERATIONAL_RUNNING_STATUS_IN_SERVICE))
     {
+std::cerr << "PLDM OCC ACTIVE" << std::endl << std::flush;
         newState = callBack(sensorEntry->second, true);
     }
     else if (eventState ==
              static_cast<EventState>(
                  PLDM_STATE_SET_OPERATIONAL_RUNNING_STATUS_STOPPED))
     {
+std::cerr << "PLDM OCC INACTIVE" << std::endl << std::flush;
         newState = callBack(sensorEntry->second, false);
     }
     else
